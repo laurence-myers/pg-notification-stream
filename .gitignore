@@ -1,0 +1,12 @@
+## Project files
+.idea/
+*.iml
+
+## NodeJS
+node_modules/
+dist/
+
+## Misc
+*.bak
+*.log
+*.orig
