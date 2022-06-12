@@ -18,5 +18,5 @@ module.exports = {
   rules: {
     "@typescript-eslint/no-unused-vars": "off", // handled by TSC
   },
-  ignorePatterns: [".eslintrc.js"],
+  ignorePatterns: [".eslintrc.js", "jest.config.js"],
 };
