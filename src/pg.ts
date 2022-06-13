@@ -1,4 +1,4 @@
-import { Notification } from "./notification";
+import type { Notification } from "./notification";
 
 export interface Client {
   on(event: "error", listener: (err: Error) => void): this;
