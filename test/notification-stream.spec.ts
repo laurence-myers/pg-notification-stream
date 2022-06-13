@@ -1,10 +1,17 @@
 import { Client } from "pg";
 import { NotificationStream } from "../src/notification-stream";
+import { Disposable, using } from "./using";
+
+class DisposableClient extends Client implements Disposable {
+  public dispose(): Promise<void> {
+    return this.end();
+  }
+}
 
 describe(NotificationStream.name, () => {
   it(`streams values as an async iterable`, async () => {
     const clientFactory = async () => {
-      const client = new Client({
+      const client = new DisposableClient({
         connectionString:
           "postgresql://postgres:password@127.0.0.1:5432/postgres",
       });
@@ -13,9 +20,8 @@ describe(NotificationStream.name, () => {
 
       return client;
     };
-    const notificationClient = await clientFactory();
 
-    try {
+    await using(await clientFactory(), async (notificationClient) => {
       const channel = "test_channel";
 
       const notificationStream = new NotificationStream(
@@ -35,10 +41,11 @@ describe(NotificationStream.name, () => {
       });
 
       // Send a message
-      const client = await clientFactory();
       const testPayload = "Test Payload";
-      await client.query(`NOTIFY "${channel}", '${testPayload}';`);
-      await client.end();
+
+      await using(await clientFactory(), async (client) => {
+        await client.query(`NOTIFY "${channel}", '${testPayload}';`);
+      });
 
       // Stop the notification stream
       notificationStream.destroy();
@@ -48,8 +55,6 @@ describe(NotificationStream.name, () => {
       await notificationClient.end();
 
       expect(notifications).toEqual([testPayload]);
-    } finally {
-      await notificationClient.end();
-    }
+    });
   });
 });
