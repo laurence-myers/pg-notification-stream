@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotificationStream async iterable API throws an error when the database connection unexpectedly disconnects: client errors 1`] = `
+Array [
+  [error: terminating connection due to administrator command],
+  [Error: Connection terminated unexpectedly],
+]
+`;
+
+exports[`NotificationStream async iterable API throws an error when the database connection unexpectedly disconnects: iterable error 1`] = `[error: terminating connection due to administrator command]`;
