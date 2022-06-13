@@ -1,5 +1,6 @@
 import { Client } from "pg";
 import { NotificationStream } from "../src/notification-stream";
+import { sleep } from "./test-utilts";
 import { Disposable, using } from "./using";
 
 class DisposableClient extends Client implements Disposable {
@@ -112,6 +113,9 @@ describe(NotificationStream.name, () => {
 
           // Terminate the listener's DB connection
           await terminateConnection();
+
+          // Sleep, so we can consistently get a "test timeout" error
+          await sleep(10);
 
           // Wait for the iterable to end
           await iterablePromise;
