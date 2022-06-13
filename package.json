@@ -16,21 +16,27 @@
     "check:tsc": "tsc --noEmit",
     "db:start": "docker-compose up db",
     "format": "prettier --write .",
+    "package": "rimraf ./dist && yarn tsc && ts-node tools/package.ts",
+    "publish:npm": "yarn run check && yarn run package && cd dist && yarn publish --non-interactive --access public",
     "test": "jest",
     "tsc": "tsc -p tsconfig.build.json"
   },
   "devDependencies": {
+    "@types/app-root-path": "^1.2.4",
     "@types/jest": "^28.1.1",
     "@types/node": "16",
     "@types/pg": "^8.6.5",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
+    "app-root-path": "^3.0.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "jest": "^28.1.1",
     "pg": "^8.7.3",
     "prettier": "^2.4.1",
+    "rimraf": "^3.0.2",
     "ts-jest": "^28.0.4",
+    "ts-node": "^10.8.1",
     "typescript": "^4.4.3"
   }
 }
