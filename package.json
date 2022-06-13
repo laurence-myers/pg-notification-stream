@@ -19,9 +19,6 @@
     "test": "jest",
     "tsc": "tsc -p tsconfig.build.json"
   },
-  "peerDependencies": {
-    "pg": ">=8"
-  },
   "devDependencies": {
     "@types/jest": "^28.1.1",
     "@types/node": "16",
