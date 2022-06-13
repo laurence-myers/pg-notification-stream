@@ -1,6 +1,6 @@
 {
   "name": "pg-notification-stream",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "PostgreSQL notifications as a NodeJS stream",
   "main": "dist/index.js",
   "author": "Laurence Dougal Myers <laurencedougalmyers@gmail.com>",

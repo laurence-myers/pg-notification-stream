@@ -28,22 +28,15 @@ async function iterateNotifications() {
   const notificationChannel = "your_channel_name";
   const stream = new NotificationStream(client, notificationChannel);
 
+  // Stop the iterator after 2 seconds, for demo purposes.
+  setTimeout(() => stream.destroy(), 2000);
+
   // Using it as an async iterable
   for await (const notification of stream) {
     console.log(`A message? For me? Oh my! It says: ${notification}`);
   }
 
   await client.end();
-}
-
-async function demo2() {
-  const iteratorPromise = iterateNotifications(); // don't wait for this promise, for demo purposes
-
-  // Stop the iterator after 2 seconds
-  setTimeout(() => stream.destroy(), 2000);
-
-  // Wait for the iterator to resolve
-  await iteratorPromise;
 }
 ```
 
