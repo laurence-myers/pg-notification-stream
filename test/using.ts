@@ -1,13 +1,10 @@
-import type { Logger } from "./logger";
-
 export interface Disposable {
   dispose(): Promise<void>;
 }
 
 export async function using<TResource extends Disposable, TReturn>(
   resource: TResource,
-  callback: (resource: TResource) => Promise<TReturn>,
-  options?: { logger: Logger }
+  callback: (resource: TResource) => Promise<TReturn>
 ): Promise<TReturn> {
   try {
     return await callback(resource);
@@ -15,9 +12,7 @@ export async function using<TResource extends Disposable, TReturn>(
     try {
       await resource.dispose();
     } catch (err) {
-      if (options?.logger) {
-        options.logger.error(err);
-      }
+      // Do nothing
     }
   }
 }

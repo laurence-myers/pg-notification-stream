@@ -1,28 +1,18 @@
-import type { CustomTypesConfig } from "pg";
-import type { Duplex } from "stream";
-import type { ConnectionOptions } from "tls";
+import { Notification } from "./notification";
 
-/**
- * Type definitions for pg 8.6
- * @see https://github.com/DefinitelyTyped/DefinitelyTyped/blob/cdceb7dbee6cfd9c9093ad0406792ff0f90472f7/types/pg/index.d.ts
- */
-export interface ClientConfig {
-  user?: string | undefined;
-  database?: string | undefined;
-  password?: string | (() => string | Promise<string>) | undefined;
-  port?: number | undefined;
-  host?: string | undefined;
-  connectionString?: string | undefined;
-  keepAlive?: boolean | undefined;
-  stream?: Duplex | undefined;
-  statement_timeout?: false | number | undefined;
-  parseInputDatesAsUTC?: boolean | undefined;
-  ssl?: boolean | ConnectionOptions | undefined;
-  query_timeout?: number | undefined;
-  keepAliveInitialDelayMillis?: number | undefined;
-  idle_in_transaction_session_timeout?: number | undefined;
-  application_name?: string | undefined;
-  connectionTimeoutMillis?: number | undefined;
-  types?: CustomTypesConfig | undefined;
-  options?: string | undefined;
+export interface Client {
+  on(event: "error", listener: (err: Error) => void): this;
+  on(event: "notification", listener: (message: Notification) => void): this;
+  on(event: "end", listener: () => void): this;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+
+  query<R>(queryTextOrConfig: string): Promise<R>;
+
+  removeListener(
+    eventName: string | symbol,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    listener: (...args: any[]) => void
+  ): this;
 }

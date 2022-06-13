@@ -1,10 +1,10 @@
-import type { ClientBase } from "pg";
 import { Readable, ReadableOptions } from "stream";
-import { Notification } from "./notification";
+import type { Notification } from "./notification";
+import type { Client } from "./pg";
 
 export class NotificationStream extends Readable {
   constructor(
-    protected readonly client: ClientBase,
+    protected readonly client: Client,
     public readonly channel: string,
     readableOptions?: Omit<ReadableOptions, "objectMode">
   ) {
