@@ -16,7 +16,8 @@
     "check:tsc": "tsc --noEmit",
     "db:start": "docker-compose up db",
     "format": "prettier --write .",
-    "test": "jest"
+    "test": "jest",
+    "tsc": "tsc -p tsconfig.build.json"
   },
   "peerDependencies": {
     "pg": ">=8"
