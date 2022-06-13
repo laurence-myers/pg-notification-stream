@@ -1,7 +1,7 @@
 {
-  "name": "pg-listen-iterable",
+  "name": "pg-notification-stream",
   "version": "1.0.0",
-  "description": "PostgreSQL notification listener as an AsyncIterable",
+  "description": "PostgreSQL notifications as a NodeJS stream",
   "main": "dist/index.js",
   "author": "Laurence Dougal Myers <laurencedougalmyers@gmail.com>",
   "license": "MIT",
